@@ -1,20 +1,29 @@
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken")
 
-const authMiddleware = async(req, res, next)=>{
-    const {token} = req.headers;
-    if(!token){
-        return res.json({success:false,message:'No Authorization LogIn Again' })
-    }
-    try{
-        const token_decode = jwt.verify(token, process.env.JWT_SECRETE)
-        req.body.userId = token_decode.id
-        next()
-    }catch(err){
-        console.log(err)
-        res.json({success:false, message:'Internal Server Error'})
+exports.authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"]
+  const token = authHeader && authHeader.split(" ")[1]
 
-    }
+  if (token == null) return res.sendStatus(401)
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403)
+    req.user = user
+    next()
+  })
 }
 
+exports.isUser = (req, res, next) => {
+  if (req.user.role !== "user") {
+    return res.status(403).json({ message: "Access denied. User only." })
+  }
+  next()
+}
 
-module.exports = authMiddleware
+exports.isAdmin = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ message: "Access denied. Admin only." })
+  }
+  next()
+}
+
