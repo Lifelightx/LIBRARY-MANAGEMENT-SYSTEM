@@ -2,6 +2,18 @@ const Book = require("../models/Book")
 const BorrowingRecord = require("../models/BorrowingRecord")
 const Reservation = require("../models/Reservation")
 const User = require("../models/User")
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+
+const upload = multer({ storage: storage })
 
 exports.getAllBooks = async (req, res) => {
   try {
@@ -13,23 +25,31 @@ exports.getAllBooks = async (req, res) => {
 }
 
 exports.addBook = async (req, res) => {
-  const book = new Book({
-    title: req.body.title,
-    author: req.body.author,
-    isbn: req.body.isbn,
-    genre: req.body.genre,
-    category: req.body.category,
-    quantity: req.body.quantity,
-    availableQuantity: req.body.quantity,
-    digitalCopy: req.body.digitalCopy,
-  })
+  
+  upload.single('image')(req, res, async (err) => {
+    if (err) {
+      console.log(err)
+      return res.status(400).json({ message: "Error uploading file" })
+    }
+    const book = new Book({
+      title: req.body.title,
+      author: req.body.author,
+      isbn: req.body.isbn,
+      genre: req.body.genre,
+      category: req.body.category,
+      quantity: req.body.quantity,
+      availableQuantity: req.body.quantity, // Assuming availableQuantity is the same as quantity initially
+      imageName: req.file.filename, // Corrected field name to imageName as per the model
+    })
+    
 
-  try {
-    const newBook = await book.save()
-    res.status(201).json(newBook)
-  } catch (error) {
-    res.status(400).json({ message: error.message })
-  }
+    try {
+      const newBook = await book.save()
+      res.status(201).json(newBook)
+    } catch (error) {
+      res.status(400).json({ message: error.message })
+    }
+  })
 }
 
 exports.updateBook = async (req, res) => {
@@ -194,4 +214,3 @@ exports.reserveBook = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
-

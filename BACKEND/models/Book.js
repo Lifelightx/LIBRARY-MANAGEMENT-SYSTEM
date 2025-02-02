@@ -8,9 +8,8 @@ const bookSchema = new mongoose.Schema({
   category: { type: String, enum: ["Fiction", "Non-fiction", "Research", "Magazine"], required: true },
   quantity: { type: Number, required: true, min: 0 },
   availableQuantity: { type: Number, required: true, min: 0 },
-  digitalCopy: { type: String }, // URL to digital copy if available
+  imageName: { type: String }, // Name of the image in the upload folder
   createdAt: { type: Date, default: Date.now },
 })
 
 module.exports = mongoose.model("Book", bookSchema)
-
