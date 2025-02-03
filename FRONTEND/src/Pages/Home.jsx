@@ -1,10 +1,14 @@
 import React from 'react'
-import Dashboard from './Dashboard'
+import Carousel from '../Components/Carousel'
+import Heros from '../Components/Heros'
+import BookGenreCards from '../Components/BookGenreCards'
 
 function Home() {
   return (
-    <div>
-      <Dashboard/>
+    <div className='px-5'>
+      <Carousel/>
+      <Heros/>
+      <BookGenreCards/>
     </div>
   )
 }

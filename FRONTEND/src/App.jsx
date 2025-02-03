@@ -4,9 +4,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './Components/Navbar'
 import Home from './Pages/Home'
 import Login from './Components/Login'
+import Footer from './Components/Footer'
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem("user_token"))
+  
   return (
     <BrowserRouter>
       <Routes>
@@ -15,11 +16,7 @@ function App() {
           <>
             <Navbar />
             <Routes>
-              <Route path='/' element={token ? <UserHome /> : <Home />} />
-              <Route path='/about' element={<About />} />
-              <Route path='/submitComplaint' element={token ? <ComplaintForm /> : <Home />} />
-              <Route path='/complaints' element={token ? <MyComplaint /> : <Home />} />
-              <Route path='/userPage' element={<UserHome />} />
+              <Route path='/' element={<Home />} />
             </Routes>
             <Footer />
           </>

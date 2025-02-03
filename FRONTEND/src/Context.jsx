@@ -7,7 +7,7 @@ export const StoreContextProvider = ({children})=>{
     const [token, setToken] = useState("")
     const url = "http://127.0.0.1:5000"
     useEffect(()=>{
-        const storedToken = localStorage.getItem("token")
+        const storedToken = localStorage.getItem("user_token")
         const storedAdminToken = localStorage.getItem("admin_token")
         if( storedToken){
             setToken(storedToken)
