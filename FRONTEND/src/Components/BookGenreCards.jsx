@@ -17,13 +17,13 @@ const BookGenreCards = () => (
             {genres.map((genre, index) => (
                 <div
                     key={index}
-                    className="relative shadow-lg rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer"
+                    className="relative shadow-lg rounded-xl overflow-hidden  cursor-pointer"
                     style={{ width: 160, height: 240 }}
                 >
                     <img
                         src={genre.image}
                         alt={genre.name}
-                        className="object-cover w-full h-full transition-opacity duration-300 ease-in-out"
+                        className="object-cover w-full h-full hover:scale-105 transition-transform duration-300  ease-in-out"
                         onError={(e) => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/150" }}
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-50 p-2">

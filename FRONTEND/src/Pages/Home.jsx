@@ -5,7 +5,7 @@ import BookGenreCards from '../Components/BookGenreCards'
 
 function Home() {
   return (
-    <div className='px-5'>
+    <div className='px-15'>
       <Carousel/>
       <Heros/>
       <BookGenreCards/>
