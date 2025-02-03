@@ -9,6 +9,7 @@ const bookSchema = new mongoose.Schema({
   quantity: { type: Number, required: true, min: 0 },
   availableQuantity: { type: Number, required: true, min: 0 },
   imageName: { type: String }, // Name of the image in the upload folder
+  imageUrl: { type: String }, // URL of the image
   createdAt: { type: Date, default: Date.now },
 })
 

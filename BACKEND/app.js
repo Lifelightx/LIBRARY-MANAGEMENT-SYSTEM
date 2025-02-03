@@ -11,7 +11,6 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-
 dotenv.config()
 
 const app = express()
@@ -19,7 +18,8 @@ const app = express()
 // Connect to database
 connectDB()
 
-
+// Serve static files from the uploads directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(cors())
 app.use(express.json())
