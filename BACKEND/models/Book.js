@@ -5,7 +5,7 @@ const bookSchema = new mongoose.Schema({
   author: { type: String, required: true },
   isbn: { type: String, required: true, unique: true },
   genre: { type: String, required: true },
-  category: { type: String, enum: ["Fiction", "Non-fiction", "Research", "Magazine"], required: true },
+  category: { type: String, enum: ["Fiction", "Non-fiction", "Research", "Magazine", "Culture"], required: true },
   quantity: { type: Number, required: true, min: 0 },
   availableQuantity: { type: Number, required: true, min: 0 },
   imageName: { type: String }, // Name of the image in the upload folder

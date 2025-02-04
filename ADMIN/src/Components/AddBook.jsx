@@ -54,6 +54,7 @@ function AddBook() {
         <option value="Non-fiction">Non-fiction</option>
         <option value="Research">Research</option>
         <option value="Magazine">Magazine</option>
+        <option value="Culture">Culture</option>
       </select>
       <input
         type="number"

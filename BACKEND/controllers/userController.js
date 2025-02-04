@@ -3,8 +3,8 @@ const BorrowingRecord = require("../models/BorrowingRecord")
 
 exports.createUser = async (req, res) => {
   try {
-    const { username, password, email } = req.body
-    const user = new User({ username, password, email })
+    const { username, password, email, name, rollNo, course } = req.body
+    const user = new User({ username, password, email,name,rollNo, course })
     await user.save()
     res.status(201).json({ message: "User created successfully" })
   } catch (error) {

@@ -1,16 +1,22 @@
-import { useState } from "react"
+
 import Login from "./Components/Login"
 import Dashboard from "./Components/Dashboard"
-
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { useContext } from "react"
+import { StoreContext } from "./Context"
 function App() {
-  const [token, setToken] = useState(localStorage.getItem("token"))
-  console.log(token)
+  const {adminToken} = useContext(StoreContext)
 
-  if (!token) {
-    return <Login setToken={setToken} />
-  }
+  return(
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login/>} />
+        <Route path='/home' element={adminToken?<Dashboard/>:<Login/>}/>
+      </Routes>
+    </BrowserRouter>
 
-  return <Dashboard />
+  ) 
+    
 }
 
 export default App
