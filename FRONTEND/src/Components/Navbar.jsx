@@ -21,7 +21,7 @@ function Navbar() {
             </div>
             <div>
               <button
-                className="px-5 py-2 bg-indigo-200 text-slate-600 font-semibold border-1 border-slate-200 rounded-full cursor-pointer font-[Montserrat]" onClick={() => navigate('/login')}>Login</button>
+                className="px-5 py-2 bg-[#006D77] text-slate-100 font-semibold border-1 border-slate-200 rounded-full cursor-pointer font-[Montserrat]" onClick={() => navigate('/login')}>Login</button>
             </div>
           </nav>
         </div>

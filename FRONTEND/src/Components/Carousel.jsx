@@ -11,17 +11,15 @@ function Carousel() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000);
+    }, 3000); // Adjust this value to control the speed (3000ms = 3 seconds)
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="relative w-full max-w-8xl my-4 mx-auto overflow-hidden rounded-lg shadow-lg">
       {/* Image Wrapper */}
-      <div
-        className="flex transition-transform duration-700 ease-in-out"
-        style={{ transform: `translateX(-${index * 100}%)` }}
-      >
+      <div className="flex transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateX(-${index * 100}%)` }}>
         {images.map((src, i) => (
           <img key={i} src={src} alt="Carousel Image" className="w-full h-96 object-cover flex-shrink-0" />
         ))}
@@ -32,7 +30,8 @@ function Carousel() {
         {images.map((_, i) => (
           <div
             key={i}
-            className={`w-3 h-3 rounded-full ${i === index ? "bg-white" : "bg-gray-500"}`}
+            className={`w-3 h-3 rounded-full cursor-pointer ${i === index ? "bg-white" : "bg-gray-500"}`}
+            onClick={() => setIndex(i)}
           ></div>
         ))}
       </div>

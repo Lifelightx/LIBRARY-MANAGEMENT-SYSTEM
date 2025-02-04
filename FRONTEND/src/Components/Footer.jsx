@@ -10,7 +10,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-indigo-600 text-white py-12">
+    <footer className="bg-[#006D77] text-white py-12">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About Section */}
@@ -65,7 +65,7 @@ const Footer = () => {
         </div>
 
         {/* Copyright Section */}
-        <div className="border-t border-blue-700 mt-8 pt-8 text-center text-sm text-gray-200">
+        <div className="border-t border-[#006D99] mt-8 pt-8 text-center text-sm text-gray-200">
           <p>
             © {new Date().getFullYear()} Library Management System. All Rights Reserved.
           </p>
