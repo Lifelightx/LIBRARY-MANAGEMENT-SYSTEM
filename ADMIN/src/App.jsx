@@ -6,6 +6,7 @@ import { StoreContext } from "./Context"
 import Home from "./Pages/Home"
 import Navbar from "./Components/Navbar"
 import Footer from "./Components/Footer"
+import AddBook from "./Components/AddBook"
 function App() {
   const { adminToken } = useContext(StoreContext)
 
@@ -18,6 +19,7 @@ function App() {
             <Navbar />
             <Routes>
               <Route path="/home" element={<Home />} />
+              <Route path="/add-book" element={<AddBook />} />
             </Routes>
             <Footer />
           </> : <>Sorry Please Login</>} />
