@@ -1,118 +1,151 @@
-import { useState } from "react"
-import axios from "axios"
+import { useState } from "react";
 
 function CreateUser() {
-  const [name, setName] = useState("")
-  const [rollNo, setRollNo] = useState("")
-  const [course, setCourse] = useState("")
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [email, setEmail] = useState("")
+  const [formData, setFormData] = useState({
+    name: "",
+    rollNo: "",
+    course: "",
+    username: "",
+    password: "",
+    email: ""
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const token = localStorage.getItem("token")
+      const token = localStorage.getItem("token");
       await axios.post(
         "http://localhost:5000/api/users/create",
-        { name, rollNo, course, username, password, email },
-        { headers: { Authorization: `Bearer ${token}` } },
-      )
-      alert("User created successfully")
-      setName("")
-      setRollNo("")
-      setCourse("")
-      setUsername("")
-      setPassword("")
-      setEmail("")
+        formData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert("User created successfully");
+      setFormData({
+        name: "",
+        rollNo: "",
+        course: "",
+        username: "",
+        password: "",
+        email: ""
+      });
     } catch (error) {
-      alert("Error creating user: " + error.response.data.message)
+      alert("Error creating user: " + error.response.data.message);
     }
-  }
+  };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-bold mb-2">Name</label>
-          <input
-            type="text"
-            id="name"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="rollNo" className="block text-sm font-bold mb-2">Roll No</label>
-          <input
-            type="text"
-            id="rollNo"
-            placeholder="Roll No"
-            value={rollNo}
-            onChange={(e) => setRollNo(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="course" className="block text-sm font-bold mb-2">Course</label>
-          <input
-            type="text"
-            id="course"
-            placeholder="Course"
-            value={course}
-            onChange={(e) => setCourse(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="username" className="block text-sm font-bold mb-2">Username</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-bold mb-2">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-bold mb-2">Email</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-        <div className="flex items-center justify-between">
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+    <div className="min-h-screen bg-[#006D77]/10 flex items-center justify-center p-4 font-[Montserrat]">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-xl p-8 font-[Montserrat]">
+        <h2 className="text-2xl font-bold mb-8 text-[#006D77] text-center font-[Montserrat]">Create New User</h2>
+        <form onSubmit={handleSubmit} className="space-y-6 font-[Montserrat]">
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-[#006D77] mb-1 font-[Montserrat]">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                placeholder="Full Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent font-[Montserrat]"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="rollNo" className="block text-sm font-medium text-[#006D77] mb-1 font-[Montserrat]">
+                  Roll No
+                </label>
+                <input
+                  type="text"
+                  id="rollNo"
+                  placeholder="Roll Number"
+                  value={formData.rollNo}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent font-[Montserrat]"
+                />
+              </div>
+              <div>
+                <label htmlFor="course" className="block text-sm font-medium text-[#006D77] mb-1 font-[Montserrat]">
+                  Course
+                </label>
+                <input
+                  type="text"
+                  id="course"
+                  placeholder="Course Name"
+                  value={formData.course}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent font-[Montserrat]"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="username" className="block text-sm font-medium text-[#006D77] mb-1 font-[Montserrat]">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="Username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent font-[Montserrat]"
+                />
+              </div>
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-[#006D77] mb-1 font-[Montserrat]">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent font-[Montserrat]"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-[#006D77] mb-1 font-[Montserrat]">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Email Address"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent font-[Montserrat]"
+              />
+            </div>
+          </div>
+
+          <button 
+            type="submit" 
+            className="w-full bg-[#006D77] text-white py-3 px-4 rounded-md hover:bg-[#006D77]/90 transition-colors duration-200 font-medium font-[Montserrat]"
+          >
             Create User
           </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  )
+  );
 }
 
-export default CreateUser
+export default CreateUser;

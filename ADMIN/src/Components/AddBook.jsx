@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
+import { StoreContext } from "../Context";
 
 const AddBook = () => {
   const [title, setTitle] = useState("");
@@ -19,11 +20,11 @@ const AddBook = () => {
       setPreview(URL.createObjectURL(file));
     }
   };
+  const {adminToken} = useContext(StoreContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
       const formData = new FormData();
       formData.append('image', image);
       formData.append('title', title);
@@ -37,7 +38,7 @@ const AddBook = () => {
       await axios.post(
         "http://localhost:5000/api/books",
         formData,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${adminToken}` } }
       );
       
       alert("Book added successfully");
