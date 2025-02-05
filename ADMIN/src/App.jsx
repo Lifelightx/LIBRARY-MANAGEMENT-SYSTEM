@@ -17,7 +17,7 @@ function App() {
           <>
             <Navbar />
             <Routes>
-              <Route path="/home" element={<Dashboard />} />
+              <Route path="/home" element={<Home />} />
             </Routes>
             <Footer />
           </> : <>Sorry Please Login</>} />
