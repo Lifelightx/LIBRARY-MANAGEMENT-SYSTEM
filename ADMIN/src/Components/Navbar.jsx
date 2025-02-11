@@ -50,6 +50,16 @@ const Navbar = () => {
             >
               Create User
             </NavLink>
+            <NavLink 
+              to="/all-users" 
+              className={({ isActive }) =>
+                `text-[#006D77] hover:text-teal-700 transition-colors duration-200 ${
+                  isActive ? 'font-bold' : ''
+                }`
+              }
+            >
+              Users
+            </NavLink>
             <button
               onClick={handleLogout}
               className="bg-[#006D77] text-white px-4 py-2 cursor-pointer rounded hover:bg-teal-600 transition-colors duration-200"

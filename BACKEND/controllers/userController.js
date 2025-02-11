@@ -4,9 +4,18 @@ const BorrowingRecord = require("../models/BorrowingRecord")
 exports.createUser = async (req, res) => {
   try {
     const { username, password, email, name, rollNo, course } = req.body
-    const user = new User({ username, password, email,name,rollNo, course })
+    const user = new User({ username, password, email, name, rollNo, course })
     await user.save()
     res.status(201).json({ message: "User created successfully" })
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+}
+
+exports.allUsers = async (req, res) => {
+  try {
+    const users = await User.find()
+    res.json(users)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
@@ -56,4 +65,3 @@ exports.getUserFines = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
-

@@ -8,6 +8,6 @@ router.put("/:id", authenticateToken, isAdmin, userController.updateUser)
 router.delete("/:id", authenticateToken, isAdmin, userController.deleteUser)
 router.get("/borrowed-books", authenticateToken, isUser, userController.getBorrowedBooks)
 router.get("/fines", authenticateToken, isUser, userController.getUserFines)
-
+router.get("/allusers",authenticateToken,isAdmin, userController.allUsers)
 module.exports = router
 

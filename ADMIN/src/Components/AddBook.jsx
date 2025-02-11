@@ -150,9 +150,11 @@ const AddBook = () => {
             <input
               type="file"
               onChange={handleImageChange}
+              
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#006D77]"
               required
             />
+            <p className="text-sm text-red-500 mt-1">Only JPG, JPEG, PNG files are acceptable.</p>
             {preview && (
               <div className="mt-2">
                 <img src={preview} alt="Preview" className="h-40 object-cover rounded" />

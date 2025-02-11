@@ -1,5 +1,6 @@
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import { StoreContext } from "../Context";
+import axios from "axios";
 function CreateUser() {
   const [formData, setFormData] = useState({
     name: "",
@@ -13,15 +14,16 @@ function CreateUser() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-
+  const {adminToken,url} = useContext(StoreContext)
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("done...", adminToken, url,formData)
     try {
-      const token = localStorage.getItem("token");
+      
       await axios.post(
-        "http://localhost:5000/api/users/create",
+        `${url}api/users/create`,
         formData,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${adminToken}` } }
       );
       alert("User created successfully");
       setFormData({

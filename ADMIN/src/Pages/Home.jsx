@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { StoreContext } from "../Context";
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
@@ -14,7 +15,7 @@ const BookList = () => {
     quantity: 0
   });
 
-  const url = "http://localhost:5000/";
+  const { adminToken, url } = useContext(StoreContext);
 
   useEffect(() => {
     fetchBooks();
@@ -22,9 +23,8 @@ const BookList = () => {
 
   const fetchBooks = async () => {
     try {
-      const token = localStorage.getItem("token");
       const response = await axios.get(`${url}api/books`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${adminToken}` },
       });
       setBooks(response.data);
     } catch (error) {
@@ -34,15 +34,16 @@ const BookList = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    // console.log("Progess...")
     try {
-      const token = localStorage.getItem("token");
       await axios.put(
         `${url}api/books/${selectedBook._id}`,
         updateForm,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${adminToken}` },
         }
       );
+      // console.log("Done..")
       setIsUpdateModalOpen(false);
       fetchBooks();
     } catch (error) {
@@ -53,9 +54,8 @@ const BookList = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this book?")) {
       try {
-        const token = localStorage.getItem("token");
         await axios.delete(`${url}api/books/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${adminToken}` },
         });
         fetchBooks();
       } catch (error) {
