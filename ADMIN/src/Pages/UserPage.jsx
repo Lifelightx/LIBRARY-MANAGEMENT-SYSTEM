@@ -74,6 +74,7 @@ const UserPage = () => {
                     <thead className="bg-[#006D77] text-white">
                         <tr>
                             <th className="px-6 py-3 text-left text-sm font-medium">Username</th>
+                            <th className="px-6 py-3 text-left text-sm font-medium">Name</th>
                             <th className="px-6 py-3 text-left text-sm font-medium">Email</th>
                             <th className="px-6 py-3 text-left text-sm font-medium">Password</th>
                             <th className="px-6 py-3 text-left text-sm font-medium">Role</th>
@@ -98,12 +99,21 @@ const UserPage = () => {
                                             </td>
                                             <td className="px-6 py-4">
                                                 <input
+                                                    type="name"
+                                                    defaultValue={user.name}
+                                                    className="w-full px-2 py-1 border rounded"
+                                                    onChange={(e) => user.name = e.target.value}
+                                                />
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <input
                                                     type="email"
                                                     defaultValue={user.email}
                                                     className="w-full px-2 py-1 border rounded"
                                                     onChange={(e) => user.email = e.target.value}
                                                 />
                                             </td>
+                                            
                                             <td className="px-6 py-4">
                                                 <input
                                                     type="text"
@@ -148,6 +158,7 @@ const UserPage = () => {
                                     ) : (
                                         <>
                                             <td className="px-6 py-4">{user.username}</td>
+                                            <td className="px-6 py-4">{user.name}</td>
                                             <td className="px-6 py-4">{user.email}</td>
                                             <td className="px-6 py-4">{user.password}</td>
                                             <td className="px-6 py-4">{user.role}</td>
@@ -155,15 +166,15 @@ const UserPage = () => {
                                             <td className="px-6 py-4">
                                                 <button
                                                     onClick={() => setEditingUser(user._id)}
-                                                    className="text-[#006D77] hover:text-[#005a63] mr-4"
+                                                    className="text-[#006D77] hover:text-[#005a63] cursor-pointer mr-4"
                                                 >
-                                                    ✏️
+                                                    📝 Edit
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(user._id)}
-                                                    className="text-red-500 hover:text-red-700"
+                                                    className="text-red-500 cursor-pointer hover:text-red-700"
                                                 >
-                                                    🗑️
+                                                    ❌ delete
                                                 </button>
                                             </td>
                                         </>
