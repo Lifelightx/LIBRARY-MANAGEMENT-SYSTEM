@@ -3,6 +3,7 @@ import Carousel from '../Components/Carousel';
 import Heros from '../Components/Heros';
 import BookGenreCards from '../Components/BookGenreCards';
 import BookList from '../Components/BookList';
+import HeroSectionPage from './HeroSectionPage';
 
 function Home() {
   const trendingBooks = [
@@ -26,6 +27,7 @@ function Home() {
       <Heros />
       <BookGenreCards />
       <hr className='text-gray-400' /> {/* Changed the color of hr to green */}
+      <HeroSectionPage/>
       <div className="mx-auto py-8 space-y-8">
         <BookList title={<><span className="text-red-600">🔥</span> Trending Books</>} books={trendingBooks} />
         <BookList title={<><span className="text-blue-600">📅</span> New Arrivals</>} books={newArrivals} />
