@@ -8,6 +8,7 @@ import Footer from './Components/Footer'
 import { StoreContext } from './Context'
 import UserPage from './Pages/UserPage'
 import BookDetails from './Components/BookDetails'
+import BorrowedBook from './Pages/BorrowedBook'
 
 function App() {
   const {token} = useContext(StoreContext)
@@ -21,6 +22,7 @@ function App() {
             <Routes>
               <Route path='/' element={token? <UserPage/> :<Home />} />
               <Route path="/book/:id" element={<BookDetails />} />
+              <Route path='/borrowed-books' element={<BorrowedBook/>} />
             </Routes>
             <Footer />
           </>

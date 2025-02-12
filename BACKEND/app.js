@@ -25,7 +25,7 @@ app.use(cors())
 app.use(express.json())
 
 // Routes
-app.use("/api/auth", require("./Routes/authRoutes"))
+app.use("/api/auth", require("./routes/authRoute"))
 app.use("/api/books", require("./routes/bookRoute"))
 app.use("/api/users", require("./routes/userRoute"))
 

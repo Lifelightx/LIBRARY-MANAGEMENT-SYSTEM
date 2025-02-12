@@ -1,3 +1,4 @@
+const { console } = require("inspector");
 const Book = require("../models/Book");
 const BorrowingRecord = require("../models/BorrowingRecord");
 const Reservation = require("../models/Reservation");
@@ -232,3 +233,4 @@ exports.getBookByID = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
