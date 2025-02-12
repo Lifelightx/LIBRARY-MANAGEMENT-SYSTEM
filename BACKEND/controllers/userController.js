@@ -1,6 +1,6 @@
 const User = require("../models/User")
 const BorrowingRecord = require("../models/BorrowingRecord")
-
+const Reservation = require("../models/Reservation");
 exports.createUser = async (req, res) => {
   try {
     const { username, password, email, name, rollNo, course } = req.body
@@ -65,3 +65,15 @@ exports.getUserFines = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+
+exports.getUserReservations = async (req, res) => {
+  try {
+    const reservations = await Reservation.find({ user: req.user.userId })
+      .populate("book") // Populate book details
+      .exec();
+
+    res.json(reservations);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

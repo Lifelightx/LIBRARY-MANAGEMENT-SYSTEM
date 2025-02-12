@@ -1,4 +1,4 @@
-const { console } = require("inspector");
+
 const Book = require("../models/Book");
 const BorrowingRecord = require("../models/BorrowingRecord");
 const Reservation = require("../models/Reservation");
@@ -160,12 +160,13 @@ exports.returnBook = async (req, res) => {
 // Renew Book
 exports.renewBook = async (req, res) => {
   try {
+    
     const borrowingRecord = await BorrowingRecord.findOne({
       user: req.user.userId,
       book: req.params.id,
       returned: false,
     });
-
+    
     if (!borrowingRecord) {
       return res.status(400).json({ message: "No active borrowing record found" });
     }
@@ -173,11 +174,11 @@ exports.renewBook = async (req, res) => {
     if (borrowingRecord.renewed) {
       return res.status(400).json({ message: "This book has already been renewed once" });
     }
-
-    borrowingRecord.dueDate.setDate(borrowingRecord.dueDate.getDate() + 7); // Extend by 7 days
+    console.log(borrowingRecord.dueDate)
+    borrowingRecord.dueDate = new Date(borrowingRecord.dueDate.getTime() + (7 * 24 * 60 * 60 * 1000));// Extend by 7 days
     borrowingRecord.renewed = true;
     await borrowingRecord.save();
-
+    
     res.json({ message: "Book renewed successfully", newDueDate: borrowingRecord.dueDate });
   } catch (error) {
     res.status(500).json({ message: error.message });

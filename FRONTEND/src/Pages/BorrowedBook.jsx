@@ -39,25 +39,27 @@ function BorrowedBook() {
         }
     };
 
-    const renewBook = async (id) => {
-        try {
-            const response = await axios.post(
-                `${url}/api/books/${id}/renew`,
-                {},
-                {
-                    headers: { Authorization: `Bearer ${token}` },
-                }
-            );
+    const renewBook = (id) => {
 
-            setBorrowedBooks((prevBooks) =>
-                prevBooks.map((book) =>
+        axios.post(`${url}/api/books/${id}/renew`, {}, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+        .then(response => {
+            
+            setBorrowedBooks(prevBooks =>
+                prevBooks.map(book =>
                     book.book._id === id ? { ...book, dueDate: response.data.newDueDate } : book
                 )
             );
-        } catch (error) {
+    
+            alert("Book renewed successfully");
+        })
+        .catch(error => {
             console.error("Error renewing book:", error);
-        }
+            alert("Error renewing book: " + (error.response?.data?.message || error.message));
+        });
     };
+    
 
     return (
         <div className="container mx-auto p-4">
@@ -77,6 +79,7 @@ function BorrowedBook() {
                 <tbody>
                     {borrowedBooks.length > 0 ? (
                         borrowedBooks.map((book) => (
+                            
                             <tr key={book._id}>
                                 <td className="border border-gray-300 px-4 py-2">{book.book.title}</td>
                                 <td className="border border-gray-300 px-4 py-2">{book.book.author}</td>
@@ -86,6 +89,7 @@ function BorrowedBook() {
                                 <td className="border border-gray-300 px-4 py-2">
                                     {new Date(book.dueDate).toLocaleDateString()}
                                 </td>
+                                
                                 <td className="border border-gray-300 px-4 py-2">
                                     <button
                                         className="bg-blue-500 text-white px-2 py-1 rounded mr-2"
