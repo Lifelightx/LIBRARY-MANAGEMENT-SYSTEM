@@ -12,36 +12,46 @@ function BookDetails() {
       .then(response => response.json())
       .then(data => setBook(data))
       .catch(error => console.error('Error fetching book details:', error));
-  }, [id]);
+  }, [id, url]);
 
   if (!book) {
     return <p className="text-center text-gray-500 mt-10">Loading book details...</p>;
   }
-//   console.log(book)
+
   return (
-    <div className="container mx-auto p-4 max-w-3xl">
-      <div className="bg-white shadow-md rounded-lg p-6">
-        <img 
-          src={`${url}/${book.imageUrl}`} 
-          alt={book.title} 
-          className="w-full h-64 object-cover rounded-lg"
-        />
-        <h2 className="text-2xl font-bold mt-4">{book.title}</h2>
-        <p className="text-gray-600">{book.author}</p>
-        <p className="text-sm text-gray-500">{book.category} • {book.genre}</p>
-        <p className="mt-3 text-gray-700">{book.description}</p>
-        <p className="mt-3 font-semibold">
-          Available Quantity: <span className="text-blue-600">{book.availableQuantity}</span>
-        </p>
+    <div className="container mx-auto px-4 py-18 max-w-4xl">
+      <div className="bg-white shadow-md rounded-lg p-6 flex flex-col md:flex-row gap-6">
         
-        <div className="mt-6 flex gap-4">
-          <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
-            Borrow
-          </button>
-          <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">
-            Reserve
-          </button>
+        {/* Book Image */}
+        <div className="md:w-1/2">
+          <img 
+            src={`${url}/${book.imageUrl}`} 
+            alt={book.title} 
+            className="w-full h-72 object-cover rounded-lg"
+          />
         </div>
+
+        {/* Book Details */}
+        <div className="md:w-1/2 flex flex-col">
+          <h2 className="text-2xl font-bold text-[#006D77]">{book.title}</h2>
+          <p className="text-gray-600 font-semibold">{book.author}</p>
+          <p className="text-sm text-gray-500">{book.category} • {book.genre}</p>
+          <p className="mt-3 text-gray-700">{book.description}</p>
+          <p className="mt-3 font-semibold">
+            Available Quantity: <span className="text-blue-600">{book.availableQuantity}</span>
+          </p>
+
+          {/* Buttons (Stacked) */}
+          <div className="mt-6 flex flex-col gap-3">
+            <button className="bg-[#006D77] text-white px-4 py-2 rounded-lg hover:bg-[#2d4e51]">
+              Borrow
+            </button>
+            <button className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">
+              Reserve
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
   );
