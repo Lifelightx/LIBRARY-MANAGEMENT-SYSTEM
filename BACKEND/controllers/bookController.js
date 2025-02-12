@@ -218,3 +218,17 @@ exports.reserveBook = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Get Book by ISBN
+exports.getBookByID = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const book = await Book.findById( id );
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+    res.json(book);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

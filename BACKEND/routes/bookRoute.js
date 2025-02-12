@@ -4,6 +4,7 @@ const bookController = require("../controllers/bookController")
 const { authenticateToken, isAdmin, isUser } = require("../middleware/auth")
 
 router.get("/", bookController.getAllBooks)
+router.get("/:id", bookController.getBookByID)
 router.post("/", authenticateToken, isAdmin, bookController.addBook)
 router.put("/:id", authenticateToken, isAdmin, bookController.updateBook)
 router.delete("/:id", authenticateToken, isAdmin, bookController.deleteBook)
