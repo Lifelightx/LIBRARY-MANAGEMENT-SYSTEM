@@ -10,14 +10,14 @@ function HeroSectionPage() {
                     Explore Now
                 </button>
             </div>
-            <div className="flex flex-col bg-[#006D77] p-10 rounded-lg items-center">
-                <div className="flex space-x-4 mb-4">
-                    <img src="https://i.pinimg.com/736x/18/1d/51/181d51dbebec41271b6941f408bff883.jpg" alt="Trending Book 1" className="w-1/2 h-48 rounded-lg shadow-md object-cover" />
-                    <img src="https://i.pinimg.com/736x/9c/c6/ae/9cc6ae6347ab896525cb55c872bd07c7.jpg" alt="Trending Book 2" className="w-1/2 h-48 rounded-lg shadow-md object-cover" />
+            <div className="flex flex-col bg-[#9dd7dc] p-10 rounded-lg items-center">
+                <div className="flex space-x-7 mb-4">
+                    <img src="https://i.pinimg.com/736x/71/e7/d8/71e7d8f0d46c0b300654016d15b922b6.jpg" alt="Trending Book 1" className="w-1/2 h-48 rounded-lg shadow-md object-cover" />
+                    <img src="https://i.pinimg.com/736x/0a/79/dd/0a79dd7d98d41d8142fb2a91a62cce4a.jpg" alt="Trending Book 2" className="w-1/2 h-48 rounded-lg shadow-md object-cover" />
                 </div>
-                <div className="flex space-x-4">
-                    <img src="https://m.media-amazon.com/images/I/61AY2K2WPeL._AC_UF350,350_QL50_.jpg" alt="New Arrival 1" className="w-1/2 h-48 rounded-lg shadow-md object-cover" />
-                    <img src="https://i.pinimg.com/736x/65/b5/ef/65b5efa52bfb19cd034dd45390b71e50.jpg" alt="New Arrival 2" className="w-1/2 h-48 rounded-lg shadow-md object-cover" />
+                <div className="flex space-x-7">
+                    <img src="https://i.pinimg.com/736x/f7/91/d7/f791d7f821a23e8ec2a76dfc63a5bdb6.jpg" alt="New Arrival 1" className="w-1/2 h-48 rounded-lg shadow-md object-cover" />
+                    <img src="https://i.pinimg.com/736x/39/c6/bf/39c6bff983453edb70f80d82305110c7.jpg" alt="New Arrival 2" className="w-1/2 h-48 rounded-lg shadow-md object-cover" />
                 </div>
             </div>
         </div>
