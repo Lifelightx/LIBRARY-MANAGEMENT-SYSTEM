@@ -8,7 +8,7 @@ import Navbar from "./Components/Navbar"
 import Footer from "./Components/Footer"
 import AddBook from "./Components/AddBook"
 import CreateUser from "./Components/CreateUser"
-import UserPage from "./Pages/userPage"
+import UserPage from "./Pages/UserPage"
 function App() {
   const { adminToken } = useContext(StoreContext)
 
