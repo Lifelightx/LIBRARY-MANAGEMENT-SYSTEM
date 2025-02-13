@@ -49,7 +49,7 @@ function MyProfile() {
 
     const handlePasswordUpdate = async (e) => {
         e.preventDefault();
-        
+
         // Basic validation
         if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
             setPasswordError('All password fields are required');
@@ -125,7 +125,7 @@ function MyProfile() {
                 <div className="px-6 py-4 border-b border-gray-200">
                     <h2 className="text-2xl font-bold text-gray-800">My Profile</h2>
                 </div>
-                
+
                 <div className="p-6">
                     <div className="flex flex-col md:flex-row">
                         {/* Profile Image */}
@@ -171,8 +171,8 @@ function MyProfile() {
                             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div className="bg-purple-50 p-4 rounded-lg">
                                     <h3 className="text-purple-800 font-semibold">Active Fines</h3>
-                                    <p className="text-2xl font-bold text-purple-600">
-                                        ${userData?.fines?.toFixed(2) || '0.00'}
+                                    <p className="text-2xl font-bold text-[#006D77]">
+                                        Rs. {userData?.fines?.toFixed(2) || '0.00'}
                                     </p>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@ function MyProfile() {
                                             name="currentPassword"
                                             value={passwordData.currentPassword}
                                             onChange={handlePasswordChange}
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                            className="mt-1 p-1.5 block w-[400px] border-2 rounded-md border-[#006D77]"
                                         />
                                     </div>
                                     <div>
@@ -198,7 +198,7 @@ function MyProfile() {
                                             name="newPassword"
                                             value={passwordData.newPassword}
                                             onChange={handlePasswordChange}
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                            className="mt-1 p-1.5 block w-[400px] border-2 rounded-md border-[#006D77]"
                                         />
                                     </div>
                                     <div>
@@ -208,25 +208,26 @@ function MyProfile() {
                                             name="confirmPassword"
                                             value={passwordData.confirmPassword}
                                             onChange={handlePasswordChange}
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                            className="mt-1 p-1.5 block w-[400px] border-2 rounded-md border-[#006D77]"
                                         />
                                     </div>
-                                    
+
                                     {passwordError && (
                                         <div className="text-red-600 text-sm">{passwordError}</div>
                                     )}
                                     {passwordSuccess && (
                                         <div className="text-green-600 text-sm">{passwordSuccess}</div>
                                     )}
-                                    
+
                                     <button
                                         type="submit"
-                                        className="w-full md:w-auto px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                        className="w-full md:w-auto px-4 py-2 bg-[#006D77] text-white rounded-md hover:bg-[#005662] focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:ring-offset-2"
                                     >
                                         Update Password
                                     </button>
                                 </form>
                             </div>
+
                         </div>
                     </div>
                 </div>

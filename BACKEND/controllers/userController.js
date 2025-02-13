@@ -24,8 +24,8 @@ exports.allUsers = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const { id } = req.params
-    const { username, email, role, password,fines, name } = req.body
-    const user = await User.findByIdAndUpdate(id, { username, email, role, name,password,fines }, { new: true })
+    const { username, email, role, password, fines, name } = req.body
+    const user = await User.findByIdAndUpdate(id, { username, email, role, name, password, fines }, { new: true })
     if (!user) {
       return res.status(404).json({ message: "User not found" })
     }
@@ -89,29 +89,29 @@ exports.getUserReservations = async (req, res) => {
 
 
 exports.updatePassword = async (req, res) => {
-    try {
-        const { currentPassword, newPassword } = req.body;
-        const userId = req.user.userId; // User ID from middleware
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const userId = req.user.userId; // User ID from middleware
 
-        // Find the user by ID
-        const user = await User.findById(userId);
+    // Find the user by ID
+    const user = await User.findById(userId);
 
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        // Check if the current password matches
-        if (user.password !== currentPassword) {
-            return res.status(400).json({ message: "Current password is incorrect" });
-        }
-
-        // Update the password
-        user.password = newPassword;
-        await user.save();
-
-        res.status(200).json({ message: "Password updated successfully" });
-
-    } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    // Check if the current password matches
+    if (user.password !== currentPassword) {
+      return res.status(400).json({ message: "Current password is incorrect" });
+    }
+
+    // Update the password
+    user.password = newPassword;
+    await user.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
 };
