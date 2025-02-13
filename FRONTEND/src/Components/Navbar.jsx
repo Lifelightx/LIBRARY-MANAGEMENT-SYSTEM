@@ -25,7 +25,7 @@ const Navbar = () => {
       to={to}
       className={({ isActive }) =>
         `block px-3 py-2 text-slate-600 rounded-full cursor-pointer font-[Montserrat] 
-        ${isActive ? 'bg-slate-200' : 'hover:bg-slate-200'} 
+        
         transition-colors duration-200`
       }
       onClick={() => setIsMenuOpen(false)}
