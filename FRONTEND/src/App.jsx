@@ -9,6 +9,7 @@ import { StoreContext } from './Context'
 import UserPage from './Pages/UserPage'
 import BookDetails from './Components/BookDetails'
 import BorrowedBook from './Pages/BorrowedBook'
+import ReservedBooks from './Pages/ReservedBooks'
 
 function App() {
   const {token} = useContext(StoreContext)
@@ -23,6 +24,7 @@ function App() {
               <Route path='/' element={token? <UserPage/> :<Home />} />
               <Route path="/book/:id" element={<BookDetails />} />
               <Route path='/borrowed-books' element={<BorrowedBook/>} />
+              <Route path='/reserved-books' element={<ReservedBooks/>}/>
             </Routes>
             <Footer />
           </>
