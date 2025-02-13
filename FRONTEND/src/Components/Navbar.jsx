@@ -29,7 +29,7 @@ function Navbar() {
                 token ? <NavLink to="/reserved-books" className="px-3 font-medium   py-2 text-slate-600 rounded-full cursor-pointer font-[Montserrat]">Reserved Books</NavLink> : <NavLink to="/services" className="px-3 font-medium  py-2 text-slate-600 rounded-full cursor-pointer font-[Montserrat]">Services</NavLink>
               }
               {
-                token ? <NavLink to="/my-profile" className="px-3 font-medium py-2 text-slate-600 rounded-full cursor-pointer font-[Montserrat]">My Profile</NavLink> : <NavLink to="/contacts" className="px-3 font-medium py-2 text-slate-600 rounded-full cursor-pointer font-[Montserrat]">Contacts</NavLink>
+                token ? <NavLink to="/profile" className="px-3 font-medium py-2 text-slate-600 rounded-full cursor-pointer font-[Montserrat]">My Profile</NavLink> : <NavLink to="/contacts" className="px-3 font-medium py-2 text-slate-600 rounded-full cursor-pointer font-[Montserrat]">Contacts</NavLink>
               }
             </div>
             <div>

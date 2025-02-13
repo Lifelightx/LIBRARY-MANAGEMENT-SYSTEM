@@ -10,5 +10,7 @@ router.get("/reserved-books", authenticateToken, userController.getUserReservati
 router.get("/borrowed-books", authenticateToken, isUser, userController.getBorrowedBooks)
 router.get("/fines", authenticateToken, isUser, userController.getUserFines)
 router.get("/allusers",authenticateToken,isAdmin, userController.allUsers)
+router.get("/getuserDetails",authenticateToken,isUser, userController.getUserDetails)
+router.post("/updatePassword",authenticateToken,isUser, userController.updatePassword)
 module.exports = router
 
