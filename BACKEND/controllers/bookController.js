@@ -141,7 +141,7 @@ exports.returnBook = async (req, res) => {
     let fine = 0;
     if (borrowingRecord.returnDate > borrowingRecord.dueDate) {
       const daysLate = Math.ceil((borrowingRecord.returnDate - borrowingRecord.dueDate) / (1000 * 60 * 60 * 24));
-      fine = daysLate * 1; // $1 per day
+      fine = daysLate * 10; // Rs.10 per day
 
       const user = await User.findById(req.user.userId);
       user.fines += fine;
