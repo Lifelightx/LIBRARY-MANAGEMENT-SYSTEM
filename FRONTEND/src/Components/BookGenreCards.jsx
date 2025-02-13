@@ -11,19 +11,19 @@ const genres = [
 ];
 
 const BookGenreCards = () => (
-    <div className="p-6">
-        <h2 className="text-3xl font-bold text-center mb-10">Explore Genres</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-1">
+    <div className="p-4 md:p-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-10">Explore Genres</h2>
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 justify-items-center">
             {genres.map((genre, index) => (
                 <div
                     key={index}
-                    className="relative shadow-lg rounded-xl overflow-hidden  cursor-pointer"
-                    style={{ width: 160, height: 240 }}
+                    className="relative shadow-lg rounded-xl overflow-hidden cursor-pointer w-full max-w-[160px]"
+                    style={{ height: 240 }}
                 >
                     <img
                         src={genre.image}
                         alt={genre.name}
-                        className="object-cover w-full h-full hover:scale-105 transition-transform duration-300  ease-in-out"
+                        className="object-cover w-full h-full hover:scale-105 transition-transform duration-300 ease-in-out"
                         onError={(e) => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/150" }}
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-white bg-opacity-50 p-2">

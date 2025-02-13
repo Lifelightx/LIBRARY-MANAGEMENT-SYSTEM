@@ -10,7 +10,6 @@ function ReservedBooks() {
 
   useEffect(() => {
     const fetchReservations = async () => {
-      // Don't attempt to fetch if there's no token
       if (!token) {
         setError("Authentication required. Please log in.");
         setLoading(false);
@@ -22,7 +21,7 @@ function ReservedBooks() {
           headers: { Authorization: `Bearer ${token}` },
         });
         setReservations(response.data);
-        setError(null); // Clear any previous errors
+        setError(null);
       } catch (err) {
         console.error('Fetch error:', err);
         if (err.response?.status === 401) {
@@ -38,12 +37,11 @@ function ReservedBooks() {
     };
 
     fetchReservations();
-  }, [token, url]); // Added token and url as dependencies
+  }, [token, url]);
 
   const retryFetch = () => {
     setLoading(true);
     setError(null);
-    // This will trigger the useEffect hook again
     const fetchReservations = async () => {
       try {
         const response = await axios.get(`${url}/api/users/reserved-books`, {
@@ -105,11 +103,52 @@ function ReservedBooks() {
     );
   }
 
+  const ReservationCard = ({ reservation }) => (
+    <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+      <div className="flex flex-col space-y-2">
+        <div>
+          <h3 className="text-lg font-medium text-gray-900">{reservation.book?.title}</h3>
+          <p className="text-sm text-gray-500">by {reservation.book?.author}</p>
+        </div>
+        <div className="flex flex-col space-y-1 text-sm">
+          <div className="flex justify-between">
+            <span className="text-gray-500">Reserved:</span>
+            <span className="text-gray-900">
+              {new Date(reservation.reservationDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-500">Expires:</span>
+            <span className="text-gray-900">
+              {new Date(reservation.expiryDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </span>
+          </div>
+        </div>
+        <div className="flex justify-end">
+          <span className={`px-2 py-1 text-xs leading-5 font-semibold rounded-full
+            ${reservation.status === 'ACTIVE' ? 'bg-green-100 text-green-800' : 
+              reservation.status === 'EXPIRED' ? 'bg-red-100 text-red-800' : 
+              'bg-yellow-100 text-yellow-800'}`}>
+            {reservation.status}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="container mx-auto p-4">
       <div className="bg-white rounded-lg shadow-sm">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-2xl font-bold text-gray-800">Reserved Books</h2>
+        <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Reserved Books</h2>
         </div>
 
         {reservations.length === 0 ? (
@@ -132,64 +171,76 @@ function ReservedBooks() {
             <p className="mt-1 text-sm text-gray-500">You haven't reserved any books yet.</p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Book Details
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Reservation Date
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Expiry Date
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {reservations.map((reservation) => (
-                  <tr key={reservation._id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
-                      <div className="flex flex-col">
-                        <div className="text-sm font-medium text-gray-900">
-                          {reservation.book?.title}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          by {reservation.book?.author}
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(reservation.reservationDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(reservation.expiryDate).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                        ${reservation.status === 'ACTIVE' ? 'bg-green-100 text-green-800' : 
-                          reservation.status === 'EXPIRED' ? 'bg-red-100 text-red-800' : 
-                          'bg-yellow-100 text-yellow-800'}`}>
-                        {reservation.status}
-                      </span>
-                    </td>
+          <>
+            {/* Desktop view */}
+            <div className="hidden sm:block overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Book Details
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Reservation Date
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Expiry Date
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </th>
                   </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {reservations.map((reservation) => (
+                    <tr key={reservation._id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4">
+                        <div className="flex flex-col">
+                          <div className="text-sm font-medium text-gray-900">
+                            {reservation.book?.title}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            by {reservation.book?.author}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {new Date(reservation.reservationDate).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {new Date(reservation.expiryDate).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                          ${reservation.status === 'ACTIVE' ? 'bg-green-100 text-green-800' : 
+                            reservation.status === 'EXPIRED' ? 'bg-red-100 text-red-800' : 
+                            'bg-yellow-100 text-yellow-800'}`}>
+                          {reservation.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile view */}
+            <div className="sm:hidden">
+              <div className="space-y-4 p-4">
+                {reservations.map((reservation) => (
+                  <ReservationCard key={reservation._id} reservation={reservation} />
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </div>
+            </div>
+          </>
         )}
       </div>
     </div>
